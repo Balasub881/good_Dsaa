@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home page</title>
+</head>
+<style>
+    .news{
+         color: red;
+    }
+    .news p{
+         color: red;
+         text-align: right;
+         margin-right: 20px;
+    }
+    .ker{
+         text-align: center;
+         padding: auto;
+         font-family: sans-serief
+    }
+    .now{
+        background-color: purple;
+    }
+    .jkl{
+       color: blue;
+       font-size: 30px;
+    }
+    .pet{
+         text-align: center;
+         font-size: 30px;
+         font-style: italic;
+    }
+</style>
+
+
+
+<body class="news">
+  <div class="now">
+    <h1 class="ker"> Welcome {{ user }}!!!! </h1>
+    <div>
+         <p style="font-size: 30px;"> Hi {{ user }}</p>
+    </div>
+  </div>
+</body>
+    <div class="pet">
+        {% if user.is_authenticated %}
+             <p>You were successfully logged in <a class="jkl"  href="{% url 'Logout' %}">Logout</a></p>
+        {% else %}
+             <p class="pet">You were logged out <a class="pet" href="{% url 'login' %}" >Login</a></p>
+        {% endif %}
+
+    </div>
+    <div>
+        <form method='POST'>
+            {% csrf_token %}
+            <table>
+                {{form.as_table}}
+            </table>
+            <input style="float:right;margin-left:20px;background-color:blue;color:white;font-size:20px;" type="submit" value='apply'>
+            <a style="float:right;font-size:20px;" href="{% url 'home' %}">Clear Filter</a>
+        </form>
+    </div>
+
+    <div>
+        <h1>Current Month Expense : {{total_expense}}</h1>
+
+    </div>
+
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Title</th>
+            <th>Amount</th>
+            <th>Description</th>
+            <th>Category</th>
+        </tr>
+        {% for expense in expenses %}
+            <tr>
+                <td>{{expense.date}}</td>
+                <td>{{expense.title}}</td>
+                <td>{{expense.amount}}</td>
+                <td>{{expense.description}}</td>
+                <td>{{expense.category.name}}</td>
+                <td><a href="{% url 'edit_expense' expense.id %}">Edit</a> </td>
+                <td><a href="{% url 'delete_expense' expense.id %}">Delete</a> </td>
+            </tr>
+        {% endfor %}
+    </table>
+</html>

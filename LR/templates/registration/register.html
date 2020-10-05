@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+</head>
+<style>
+  .late{
+      padding: 2rem;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      background-color: violet;
+  }
+  .late form{
+    padding: 1rem;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .late form p{
+     margin-bottom: 1rem;
+  }
+  .late form input, .bore form textarea{
+     padding: 1rem;
+     width: 100%
+  }
+  .late form label{
+     display:block;
+  }
+  .late form button{
+    background: blue;
+    color: white;
+    font-size: 15px;
+    width: 100;
+    font-family: sans-serif;
+    cursor: pointer;
+    height: 25px;
+  }
+  .nemo{
+       text-align:center;
+       font-family: sans-serief
+       font-size: 40px;
+    }
+  .put{
+      font-size:20px;
+  }
+
+
+</style>
+<body>
+    <h1 class="nemo">Register here</h1>
+    <div class="late">
+       <form method="POST">
+           {% csrf_token %}
+           {{ form.as_p }}
+           <div><button>Register</button></div>
+           <div class="put">
+               <p>Already have an account?<a href="{% url 'login' %}">Login</a></p>
+           </div>
+       </form>
+    </div>
+</body>
+</html>
